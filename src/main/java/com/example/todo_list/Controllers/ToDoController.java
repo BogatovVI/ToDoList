@@ -1,5 +1,6 @@
 package com.example.todo_list.Controllers;
 
+import com.example.todo_list.Model.Todo;
 import com.example.todo_list.Services.TodoServices;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class ToDoController {
     private final TodoServices toDoServices;
 
     @GetMapping
-    public List<String> HelloWorld(){
+    public List<Todo> GetAllTodo(){
         return toDoServices.responseAllTodos();
     }
 }

@@ -7,8 +7,6 @@ services:
       POSTGRES_DB: "ToDoList"
       POSTGRES_USER: "BogatovVI"
       POSTGRES_PASSWORD: "StartProject"
-    depends_on:
-      - backend
     ports:
       - "5432:5432"
     volumes:
@@ -16,5 +14,7 @@ services:
   backend:
     build: .
     restart: always
+    depends_on:
+      - postgres
     ports:
       - "8080:8080"

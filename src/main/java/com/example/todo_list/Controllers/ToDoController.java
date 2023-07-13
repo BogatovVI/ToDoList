@@ -5,9 +5,9 @@ import com.example.todo_list.Services.TodoServices;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,7 +20,24 @@ public class ToDoController {
     private final TodoServices toDoServices;
 
     @GetMapping
-    public List<Todo> GetAllTodo(){
+    public List<Todo> getAllTodo(){
         return toDoServices.responseAllTodos();
+    }
+
+    @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Todo createTodo(@RequestBody Todo todo){
+        return toDoServices.createTodo(todo.getName());
+    }
+
+    @PutMapping(path = "/{id}")
+    public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo){
+        return toDoServices.updateTodo(id, todo);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteTodo(@PathVariable Long id){
+        toDoServices.deleteTodo(id);
     }
 }
